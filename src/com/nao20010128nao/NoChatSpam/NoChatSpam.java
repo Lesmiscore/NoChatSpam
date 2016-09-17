@@ -2,8 +2,13 @@ package com.nao20010128nao.NoChatSpam;
 
 import com.nao20010128nao.NoChatSpam.controllers.JavascriptController;
 import com.nao20010128nao.NoChatSpam.controllers.ScriptController;
+import com.nao20010128nao.NoChatSpam.localevents.CommandEvent;
+import com.nao20010128nao.NoChatSpam.localevents.MeEvent;
+import com.nao20010128nao.NoChatSpam.localevents.SayEvent;
 
+import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
+import cn.nukkit.event.player.PlayerCommandPreprocessEvent;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 
@@ -12,6 +17,7 @@ public class NoChatSpam extends PluginBase implements Listener {
 
 	@Override
 	public void onEnable() {
+		getDataFolder().mkdirs();
 		getServer().getPluginManager().registerEvents(this, this);
 
 		Config config = getConfig();
@@ -35,6 +41,30 @@ public class NoChatSpam extends PluginBase implements Listener {
 
 	@Override
 	public void onDisable() {
+		controller.onFinish();
+	}
 
+	@EventHandler
+	public void onCommandPreProp(PlayerCommandPreprocessEvent event) {
+		if (!event.getMessage().startsWith("/"))
+			return;
+		String commandBody = event.getMessage().substring(1).split(" ")[0];
+		switch (commandBody) {
+			case "me":
+				MeEvent me = new MeEvent(event.getPlayer(), event.getMessage().substring(4));
+				controller.onMe(me);
+				event.setCancelled(me.isCancelled());
+				break;
+			case "say":
+				SayEvent se = new SayEvent(event.getPlayer(), event.getMessage().substring(5));
+				controller.onSay(se);
+				event.setCancelled(se.isCancelled());
+				break;
+			default:
+				CommandEvent ce = new CommandEvent(event.getPlayer(), event.getMessage());
+				controller.onCommand(ce);
+				event.setCancelled(ce.isCancelled());
+				break;
+		}
 	}
 }

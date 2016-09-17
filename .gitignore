@@ -1,5 +1,2 @@
-bin/
-gen/
-.classpath
-preference.bin
+/bin/
 /target/

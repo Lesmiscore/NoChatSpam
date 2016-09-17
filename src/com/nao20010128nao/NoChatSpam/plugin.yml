@@ -1,0 +1,8 @@
+name: NoChatSpam
+main: com.nao20010128nao.NoChatSpam.NoChatSpam
+version: 1.0.0
+api: 1.0.0
+author: nao20010128nao
+website:
+commands:
+permissions:
