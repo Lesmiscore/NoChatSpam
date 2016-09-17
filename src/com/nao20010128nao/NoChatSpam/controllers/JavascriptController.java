@@ -67,32 +67,32 @@ public class JavascriptController implements ScriptController {
 			}
 		}
 		try {
-			onStart = (Function) scope.get("onStart", scope);
+			onStart = (Function) Context.jsToJava(scope.get("onStart", scope), Function.class);
 		} catch (Throwable e) {
 			plugin.getLogger().alert("Error", e);
 		}
 		try {
-			onChat = (Function) scope.get("onChat", scope);
+			onChat = (Function) Context.jsToJava(scope.get("onChat", scope), Function.class);
 		} catch (Throwable e) {
 			plugin.getLogger().alert("Error", e);
 		}
 		try {
-			onMe = (Function) scope.get("onMe", scope);
+			onMe = (Function) Context.jsToJava(scope.get("onMe", scope), Function.class);
 		} catch (Throwable e) {
 			plugin.getLogger().alert("Error", e);
 		}
 		try {
-			onSay = (Function) scope.get("onSay", scope);
+			onSay = (Function) Context.jsToJava(scope.get("onSay", scope), Function.class);
 		} catch (Throwable e) {
 			plugin.getLogger().alert("Error", e);
 		}
 		try {
-			onCommand = (Function) scope.get("onCommand", scope);
+			onCommand = (Function) Context.jsToJava(scope.get("onCommand", scope), Function.class);
 		} catch (Throwable e) {
 			plugin.getLogger().alert("Error", e);
 		}
 		try {
-			onFinish = (Function) scope.get("onFinish", scope);
+			onFinish = (Function) Context.jsToJava(scope.get("onFinish", scope), Function.class);
 		} catch (Throwable e) {
 			plugin.getLogger().alert("Error", e);
 		}

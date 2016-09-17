@@ -46,22 +46,23 @@ public class NoChatSpam extends PluginBase implements Listener {
 
 	@EventHandler
 	public void onCommandPreProp(PlayerCommandPreprocessEvent event) {
-		if (!event.getMessage().startsWith("/"))
+		final String message = event.getMessage();
+		if (!message.startsWith("/"))
 			return;
-		String commandBody = event.getMessage().substring(1).split(" ")[0];
+		String commandBody = message.substring(1).split(" ")[0];
 		switch (commandBody) {
 			case "me":
-				MeEvent me = new MeEvent(event.getPlayer(), event.getMessage().substring(4));
+				MeEvent me = new MeEvent(event.getPlayer(), message.length() >= 4 ? message.substring(4) : "");
 				controller.onMe(me);
 				event.setCancelled(me.isCancelled());
 				break;
 			case "say":
-				SayEvent se = new SayEvent(event.getPlayer(), event.getMessage().substring(5));
+				SayEvent se = new SayEvent(event.getPlayer(), message.length() >= 5 ? message.substring(5) : "");
 				controller.onSay(se);
 				event.setCancelled(se.isCancelled());
 				break;
 			default:
-				CommandEvent ce = new CommandEvent(event.getPlayer(), event.getMessage());
+				CommandEvent ce = new CommandEvent(event.getPlayer(), message);
 				controller.onCommand(ce);
 				event.setCancelled(ce.isCancelled());
 				break;
