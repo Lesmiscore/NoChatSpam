@@ -49,6 +49,7 @@ public class JavascriptController implements ScriptController {
 		}
 		plugin.getLogger().info("Loading script from: " + toLoad);
 
+		context = Context.enter();
 		context.setOptimizationLevel(9);
 		scope = context.initStandardObjects();
 		Reader r = null;
