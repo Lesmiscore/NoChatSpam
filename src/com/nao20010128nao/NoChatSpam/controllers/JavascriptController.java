@@ -34,7 +34,7 @@ public class JavascriptController implements ScriptController {
 
 		Config cfg = plugin.getConfig();
 		cfg.reload();
-		File toLoad = new File(plugin.getDataFolder(), "contol.js");
+		File toLoad = new File(plugin.getDataFolder(), "control.js");
 		if (cfg.exists("file", true)) {
 			File path = new File(cfg.getString("file"));
 			if (path.isAbsolute())
