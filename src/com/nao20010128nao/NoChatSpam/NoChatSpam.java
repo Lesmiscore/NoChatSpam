@@ -13,12 +13,15 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerCommandPreprocessEvent;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
+import cn.nukkit.utils.TextFormat;
 
 public class NoChatSpam extends PluginBase implements Listener {
 	ScriptController controller;
 
 	@Override
 	public void onEnable() {
+		getLogger().info(TextFormat.GREEN + "NoChatSpam by nao20010128nao");
+		getLogger().info(TextFormat.RED + "Commercial use of this plugin is RESTRICTED!");
 		getDataFolder().mkdirs();
 		getServer().getPluginManager().registerEvents(this, this);
 
@@ -49,13 +52,13 @@ public class NoChatSpam extends PluginBase implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if ("nocs".equalsIgnoreCase(label))
+		if (!"nocs".equalsIgnoreCase(label))
 			return false;
 		if (!sender.isOp()) {
 			sender.sendMessage("You have no permission to use this command.");
 			return true;
 		}
-		if (args.length < 1) {
+		if (args.length == 0) {
 			sender.sendMessage("Usage: /nocs reload");
 			return true;
 		}
@@ -77,6 +80,9 @@ public class NoChatSpam extends PluginBase implements Listener {
 			controller.onStart();
 			sender.sendMessage("Done.");
 			getLogger().info("Done.");
+		} else {
+			sender.sendMessage("Usage: /nocs reload");
+			return true;
 		}
 		return true;
 	}
